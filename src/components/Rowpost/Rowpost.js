@@ -16,15 +16,14 @@ function Rowpost(props) {
         height: '390',
         width: '100%',
         playerVars: {
-            // https://developers.google.com/youtube/player_parameters
             autoplay: 1,
         },
     };
     const handleMovie = (id) => {
         console.log(id);
-        axios.get(`/movie/${id}/videos?api_key=${API_KEY}&language=en-US`).then(response =>{
+        axios.get(`/movie/${id}/videos?api_key=${API_KEY}&language=en-US`).then(response => {
             console.log(response.data);
-            if(response.data.results.length!==0){
+            if (response.data.results.length !== 0) {
                 setUrlId(response.data.results[0])
             }
         })
@@ -33,17 +32,18 @@ function Rowpost(props) {
     }
 
     return (
+
         <div className="row">
             <h2 className="poster-title">{props.title}</h2>
             <div className="poster">
                 {movies.map((obj) =>
 
-
                     <img onClick={() => handleMovie(obj.id)} className={props.isSmall ? "small-poster" : 'normal-poster'} src={`${imageUrl + obj.poster_path}`} alt="poster" />
+
                 )}
 
             </div>
-           { urlId && <YouTube videoId={urlId.key} opts={opts} />}
+            {urlId && <YouTube videoId={urlId.key} opts={opts} />}
         </div>
     )
 }
